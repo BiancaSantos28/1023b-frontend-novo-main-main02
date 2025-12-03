@@ -1,0 +1,215 @@
+/* ===================== ROOT & GLOBAL ===================== */
+:root {
+  --cor-fundo: #0f0f0f;
+  --cor-texto: #f5f5f5;
+  --cor-principal: #6c63ff;
+  --cor-secundaria: #00d1ff;
+  --cor-borda: #222;
+  --cor-botao-hover: #554bf2;
+  --cor-botao-danger: #ff4d4d;
+  --cor-botao-warning: #ffb84d;
+
+  --card-bg: #1a1a1a;
+  --header-bg: #151515;
+
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  line-height: 1.6;
+  font-weight: 400;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background: var(--cor-fundo);
+  color: var(--cor-texto);
+}
+
+/* ===================== HEADER ===================== */
+header {
+  background: var(--header-bg);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.3rem 2.5rem;
+  border-bottom: 1px solid var(--cor-borda);
+  position: sticky;
+  top: 0;
+  z-index: 999;
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.4);
+}
+
+header h1 {
+  font-size: 1.8rem;
+  background: linear-gradient(90deg, var(--cor-secundaria), var(--cor-principal));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 600;
+}
+
+nav a {
+  color: var(--cor-texto);
+  margin-left: 1.5rem;
+  font-size: 1rem;
+  font-weight: 500;
+  transition: 0.3s;
+}
+
+nav a:hover {
+  color: var(--cor-secundaria);
+  text-shadow: 0 0 8px var(--cor-secundaria);
+}
+
+/* ===================== USER BOX (Nome + Tipo) ===================== */
+.user-box {
+  position: fixed;
+  top: 12px;
+  right: 18px;
+  background: rgba(255,255,255,0.05);
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,0.1);
+  color: var(--cor-texto);
+  z-index: 1000;
+  text-align: right;
+}
+
+.user-line {
+  font-size: 13px;
+}
+
+.user-line.small {
+  font-size: 12px;
+  opacity: 0.8;
+}
+
+/* ===================== ÁREA PRINCIPAL ===================== */
+main {
+  max-width: 1250px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+/* Cabeçalho do catálogo */
+.catalog-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.2rem;
+}
+
+.catalog-meta {
+  color: #ccc;
+  font-size: 14px;
+  display: flex;
+  gap: 1rem;
+}
+
+/* ===================== GRID DE PRODUTOS ===================== */
+.grid-produtos {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+  gap: 1.7rem;
+  width: 100%;
+}
+
+/* ===================== CARDS ===================== */
+.card {
+  background: var(--card-bg);
+  border: 1px solid #252525;
+  border-radius: 18px;
+  padding: 1.2rem;
+  text-align: center;
+  transition: 0.35s;
+  box-shadow: 0 0 0 rgba(0,0,0,0.3);
+}
+
+.card:hover {
+  transform: translateY(-7px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.45);
+  border-color: var(--cor-principal);
+}
+
+.card img {
+  width: 100%;
+  height: 210px;
+  object-fit: contain;
+  border-radius: 12px;
+  margin-bottom: 1rem;
+}
+
+.card-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin: 0.4rem 0 0.8rem;
+}
+
+.card-desc {
+  font-size: 0.92rem;
+  color: #cfcfcf;
+  margin-bottom: 0.6rem;
+}
+
+.card-meta {
+  font-size: 0.95rem;
+  color: #eaeaea;
+  margin-bottom: 1rem;
+}
+
+/* ===================== BOTÕES ===================== */
+button {
+  background: var(--cor-principal);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  padding: 0.65rem 1.3rem;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: 0.3s;
+  letter-spacing: 0.5px;
+  font-weight: 500;
+}
+
+button:hover {
+  background: var(--cor-botao-hover);
+  transform: scale(1.06);
+  box-shadow: 0 0 12px var(--cor-principal);
+}
+
+button.danger {
+  background: var(--cor-botao-danger);
+}
+
+button.warning {
+  background: var(--cor-botao-warning);
+}
+
+/* ===================== FOOTER ===================== */
+footer {
+  text-align: center;
+  padding: 1rem;
+  border-top: 1px solid var(--cor-borda);
+  background: var(--header-bg);
+  margin-top: 3rem;
+  font-size: 0.9rem;
+  color: #bbb;
+}
+
+/* ===================== RESPONSIVO ===================== */
+@media (max-width: 900px) {
+  .grid-produtos {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  }
+
+  header {
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .user-box {
+    right: 8px;
+    top: 6px;
+    font-size: 12px;
+  }
+}

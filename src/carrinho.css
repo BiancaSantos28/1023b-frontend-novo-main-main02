@@ -1,0 +1,209 @@
+/* --- Layout geral --- */
+.carrinho-wrapper {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 30px;
+  color: #fff;
+  font-family: "Segoe UI", sans-serif;
+}
+
+.carrinho-wrapper h1 {
+  text-align: center;
+  margin-bottom: 25px;
+  font-size: 2.2rem;
+  color: #00d1ff;
+}
+
+/* --- Área principal --- */
+.layout {
+  background: #1a1a1a;
+  padding: 20px;
+  border-radius: 14px;
+  box-shadow: 0 0 12px rgba(0, 0, 0, .4);
+}
+
+/* --- Cartões dos produtos --- */
+.produto-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #111;
+  padding: 15px;
+  margin-bottom: 16px;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, .4);
+}
+
+.produto-info {
+  flex: 1;
+}
+
+.produto-card h3 {
+  margin: 0 0 5px 0;
+  font-size: 1.1rem;
+  color: #4d9fff;
+}
+
+.preco-unitario {
+  font-size: 0.95rem;
+  margin-bottom: 8px;
+}
+
+/* --- Controle de quantidade --- */
+.quantidade {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.quantidade button {
+  width: 28px;
+  height: 28px;
+  font-size: 1rem;
+  border: none;
+  background: #333;
+  color: #fff;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.quantidade button:hover {
+  background: #00d1ff;
+}
+
+.subtotal {
+  margin-top: 10px;
+  font-size: 0.95rem;
+}
+
+.remover {
+  margin-top: 8px;
+  font-size: 0.9rem;
+  background: none;
+  border: none;
+  color: #ff4d4d;
+  cursor: pointer;
+}
+.remover:hover {
+  color: #ff0000;
+}
+
+/* --- Resumo --- */
+.resumo {
+  background: #111;
+  margin-top: 20px;
+  padding: 18px;
+  border-radius: 12px;
+  box-shadow: 0 0 12px rgba(0,0,0,.4);
+}
+
+.resumo h2 {
+  text-align: center;
+  color: #00d1ff;
+  margin-bottom: 15px;
+}
+
+.resumo p {
+  font-size: 1rem;
+  margin: 6px 0;
+}
+
+/* --- Inputs / Cupom --- */
+.cupom {
+  display: flex;
+  margin-top: 15px;
+}
+
+.cupom input {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  border-radius: 10px 0 0 10px;
+  outline: none;
+  background: #222;
+  color: white;
+}
+
+.cupom button {
+  padding: 10px 14px;
+  background: #00d1ff;
+  border: none;
+  border-radius: 0 10px 10px 0;
+  color: #000;
+  font-weight: bold;
+  cursor: pointer;
+  transition: .2s;
+}
+
+.cupom button:hover {
+  background: #4d9fff;
+}
+
+/* --- Botões principais --- */
+.finalizar,
+.limpar,
+.voltar {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 12px;
+  margin-top: 10px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 1rem;
+  transition: .2s;
+}
+
+/* Finalizar */
+.finalizar {
+  background: #00ff88;
+  color: #000;
+}
+.finalizar:hover {
+  background: #00cc6a;
+}
+
+/* Limpar carrinho */
+.limpar {
+  background: #ff4d4d;
+  color: #fff;
+}
+.limpar:hover {
+  background: #e60000;
+}
+
+/* Voltar */
+.voltar {
+  background: #4d9fff;
+  color: #000;
+}
+.voltar:hover {
+  background: #1e7be0;
+}
+
+/* --- Carrinho vazio --- */
+.carrinho-vazio {
+  text-align: center;
+  background: #1a1a1a;
+  padding: 25px;
+  border-radius: 14px;
+  box-shadow: 0 0 12px rgba(0,0,0,.4);
+}
+
+.carrinho-vazio button {
+  margin-top: 15px;
+}
+
+/* Responsividade */
+@media (max-width: 600px) {
+  .produto-card {
+    flex-direction: column;
+    text-align: center;
+    gap: 12px;
+  }
+
+  .quantidade {
+    justify-content: center;
+  }
+}
