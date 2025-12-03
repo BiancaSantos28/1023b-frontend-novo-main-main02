@@ -6,7 +6,7 @@ import "./Carrinho.css";
 type ProdutoCarrinho = {
   produtoId: string;
   nome: string;
-  precoUnitario: number;
+  precoUnitario: number; // agora em CENTAVOS
   quantidade: number;
 };
 
@@ -36,12 +36,8 @@ export default function Carrinho() {
         headers: { Authorization: `Bearer ${token}` },
       });
 
-      setItens(
-        (res.data.itens || []).map((item: any) => ({
-          ...item,
-          precoUnitario: item.precoUnitario / 100,
-        }))
-      );
+      // CORRIGIDO: NÃO dividir precoUnitario
+      setItens(res.data.itens || []);
     } catch {
       alert("Erro ao carregar carrinho. Faça login novamente.");
       navigate("/login");
@@ -114,7 +110,7 @@ export default function Carrinho() {
     }
   }
 
-  // 🔵 NOVO — Função de pagamento com Stripe
+  // 🔵 FINALIZAR COMPRA – CORRIGIDO
   async function finalizarCompra() {
     const token = localStorage.getItem("token");
     if (!token) {
@@ -124,15 +120,20 @@ export default function Carrinho() {
 
     try {
       const res = await api.post(
-        "/criar-pagamento-cartao",
-        { itens, desconto },
+        "/checkout",
         {
-          headers: { Authorization: `Bearer ${token}` },
-        }
+          // ENVIAR PREÇO ORIGINAL EM CENTAVOS
+          itens: itens.map((item) => ({
+            nome: item.nome,
+            quantidade: item.quantidade,
+            precoUnitario: item.precoUnitario, // NÃO dividir aqui
+          })),
+        },
+        { headers: { Authorization: `Bearer ${token}` } }
       );
 
       if (res.data.url) {
-        window.location.href = res.data.url; // redireciona pro Stripe
+        window.location.href = res.data.url;
       } else {
         alert("Erro inesperado: Stripe não retornou URL.");
       }
@@ -142,16 +143,19 @@ export default function Carrinho() {
     }
   }
 
-  const subtotal = itens.reduce(
+  // ⭐ cálculos agora usam centavos
+  const subtotalCentavos = itens.reduce(
     (acc, item) => acc + item.precoUnitario * item.quantidade,
     0
   );
 
-  const totalFinal = subtotal - desconto;
+  const descontoCentavos = desconto;
+
+  const totalFinalCentavos = subtotalCentavos - descontoCentavos;
 
   function aplicarCupom() {
     if (cupom.toUpperCase() === "SAN10") {
-      setDesconto(subtotal * 0.1);
+      setDesconto(subtotalCentavos * 0.1); // desconto em centavos
       alert("Cupom aplicado: 10% OFF");
     } else {
       alert("Cupom inválido");
@@ -178,8 +182,9 @@ export default function Carrinho() {
               <div className="produto-info">
                 <h3>{item.nome}</h3>
 
+                {/* EXIBIR PREÇO DIVIDIDO */}
                 <p className="preco-unitario">
-                  Preço: <strong>R$ {item.precoUnitario.toFixed(2)}</strong>
+                  Preço: <strong>R$ {(item.precoUnitario / 100).toFixed(2)}</strong>
                 </p>
 
                 <div className="quantidade">
@@ -206,7 +211,7 @@ export default function Carrinho() {
                 <p className="subtotal">
                   Subtotal:{" "}
                   <strong>
-                    R$ {(item.precoUnitario * item.quantidade).toFixed(2)}
+                    R$ {((item.precoUnitario * item.quantidade) / 100).toFixed(2)}
                   </strong>
                 </p>
 
@@ -224,12 +229,13 @@ export default function Carrinho() {
             <h2>Resumo</h2>
 
             <p>
-              Subtotal: <strong>R$ {subtotal.toFixed(2)}</strong>
+              Subtotal:{" "}
+              <strong>R$ {(subtotalCentavos / 100).toFixed(2)}</strong>
             </p>
 
-            {desconto > 0 && (
+            {descontoCentavos > 0 && (
               <p style={{ color: "#00ff88" }}>
-                Desconto: -R$ {desconto.toFixed(2)}
+                Desconto: -R$ {(descontoCentavos / 100).toFixed(2)}
               </p>
             )}
 
@@ -244,10 +250,10 @@ export default function Carrinho() {
             </div>
 
             <p style={{ fontSize: "1.2rem", marginTop: "10px" }}>
-              Total: <strong>R$ {totalFinal.toFixed(2)}</strong>
+              Total:{" "}
+              <strong>R$ {(totalFinalCentavos / 100).toFixed(2)}</strong>
             </p>
 
-            {/* 🔵 BOTÃO NOVO — PAGAR */}
             <button className="finalizar" onClick={finalizarCompra}>
               Pagar com Cartão 💳
             </button>
